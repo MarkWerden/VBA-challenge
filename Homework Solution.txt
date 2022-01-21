@@ -1,0 +1,37 @@
+Sub Ticket():
+
+Dim Total As String
+Dim TickerSymbol As String
+Dim Counter As Integer
+Dim YearlyChange As String
+Dim OpenValue As Double
+Dim PercentChange As Double
+
+Total = 0
+TickerSymbol = 2
+YearlyChange = 2
+Counter = 0
+
+For i = 2 To 800000
+ If Cells(i, 1).Value = Cells(i + 1, 1).Value Then
+  Total = Total + Cells(i, 7).Value
+  Counter = Counter + 1
+ Else
+  Total = Total + Cells(i, 7).Value
+  Cells(TickerSymbol, 9).Value = Cells(i, 1).Value
+  Cells(TickerSymbol, 12).Value = Total
+  OpenValue = Cells(i - Counter, 3).Value
+  YearlyChange = Cells(i, 6).Value - OpenValue
+  PercentChange = (Cells(i, 6).Value / OpenValue) - 1
+  Cells(TickerSymbol, 10).Value = YearlyChange
+  Cells(TickerSymbol, 11).Value = PercentChange
+  Counter = 0
+  Total = 0
+  TickerSymbol = TickerSymbol + 1
+  YearlyChange = YearlyChange + 1
+ End If
+Next i
+
+
+End Sub
+
